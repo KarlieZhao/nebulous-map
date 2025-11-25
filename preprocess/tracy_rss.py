@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 """Fetch GPS traces from OpenStreetMap RSS feed"""
 
@@ -63,7 +63,7 @@ def download_gpx(item, title, outdir):
 
     # skip if file exists
     if os.path.exists(path):
-        # print(f"{gpx_name} exists. Skipping.")
+        print(f"{gpx_name} exists. Skipping.")
         return 0
 
     print(f"writing {gpx_name}")
@@ -71,11 +71,11 @@ def download_gpx(item, title, outdir):
         xml = fetch_trace(item['dataURL'])
 
         if not xml:
-            print('Data format not right, skipping.')
+            # print('Data format not right, skipping.')
             return 0
 
         # Save GPX file
-        Path(f'/Users/karlie/Documents/GitHub/maps/preprocess/gpx/{gpx_name}').write_text(
+        Path(f'/Users/karlie/Documents/GitHub/nebulous-map/preprocess/gpx/{gpx_name}').write_text(
             xml, encoding='utf-8')
         print(f'Saved {gpx_name}')
 
@@ -83,10 +83,10 @@ def download_gpx(item, title, outdir):
         # try:
         #     geojson_name = name_base + ".geojson"
         #     geojson_path = os.path.join(
-        #         "/Users/karlie/Documents/GitHub/maps/preprocess/geojson", geojson_name)
+        #         "/Users/karlie/Documents/GitHub/nebulous-map/preprocess/geojson", geojson_name)
         #     gpx_to_geojson(path, geojson_path)
         #     # svg_name = name_base + ".svg"
-        #     # svg_path = os.path.join("/Users/karlie/Documents/GitHub/maps/preprocess/svg", svg_name)
+        #     # svg_path = os.path.join("/Users/karlie/Documents/GitHub/nebulous-map/preprocess/svg", svg_name)
         #     # gpx_to_svg(path, svg_path)
         # except Exception as e:
         #     print(f"Error processing {gpx_name}: {e}")
@@ -103,11 +103,11 @@ def main():
     items = fetch_rss(rss_url)
     print(f'{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}: found {len(items)} items.')
 
-    outdir = "/Users/karlie/Documents/GitHub/maps/preprocess/gpx"
+    outdir = "/Users/karlie/Documents/GitHub/nebulous-map/preprocess/gpx"
     os.makedirs(outdir, exist_ok=True)
     success = 0
 
-    for i in range(min(10, len(items))):
+    for i in range(min(20, len(items))):
         item = items[i]
         success += download_gpx(item, item["id"], outdir)
 

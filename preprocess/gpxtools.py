@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
+
 """Helpers: gpx_to_geojson, gpx_to_svg"""
-#!/usr/bin/python3
 
 import json
 import gpxpy
@@ -170,6 +171,7 @@ if __name__ == "__main__":
     with os.scandir(svg_folder) as svgs:
         for svg in svgs:
             filename = os.path.basename(svg).split(".")[0]
+            # print(f"\"{filename}.svg\",")
             existing.append(filename)
 
     with os.scandir("./gpx") as traces:

@@ -9,4 +9,7 @@ traces/
 .vscode
 /*/.vscode/
 
-tracy/public
+tracy/public/svg
+tracy/public/gpx
+
+tracy/package-lock.json
